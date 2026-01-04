@@ -1,0 +1,39 @@
+* {
+  position: relative;
+  box-sizing: border-box;
+}
+
+:root {
+  interpolate-size: allow-keywords;
+  transition: all 0.25s ease;
+
+  --primary-colour: white;
+  --primary-text-colour: black;
+
+  @media (prefers-color-scheme: dark) {
+    --primary-colour: black;
+    --primary-text-colour: white;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  transition: inherit;
+
+  font-family: "Inter", sans-serif;
+
+  color: var(--primary-text-colour);
+  background-color: var(--primary-colour);
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

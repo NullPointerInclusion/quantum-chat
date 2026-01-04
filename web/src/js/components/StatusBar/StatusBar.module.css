@@ -1,0 +1,71 @@
+@keyframes connection-pulse {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.status-bar {
+  padding: 0.125rem 0.25rem;
+  background-color: #fff2;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 1rem;
+  font-size: 0.85rem;
+  box-sizing: content-box;
+  font-family: "Cascadia Code", monospace;
+}
+
+.connection-status,
+.user-details {
+  display: flex;
+  align-items: center;
+}
+
+.connection-status-indicator {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.25rem;
+
+  &::after {
+    content: "";
+    height: 100%;
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    background-color: var(--status-colour);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &[data-status="disconnected"] {
+    --status-colour: #f00;
+  }
+  &[data-status="connecting"] {
+    --status-colour: #ff3;
+    &::after {
+      animation: connection-pulse 2s ease-out 0s infinite forwards;
+    }
+  }
+  &[data-status="connected"] {
+    --status-colour: #0fa;
+  }
+}
+
+.status-text {
+  margin: 0;
+  opacity: 0.8;
+}

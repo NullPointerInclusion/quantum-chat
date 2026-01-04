@@ -1,0 +1,76 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <filter id="drop-shadow">
+    <feDropShadow
+      id="shadow"
+      dx="0"
+      dy="0"
+      stdDeviation="7"
+      flood-color="white"
+      flood-opacity="0.8"
+    />
+  </filter>
+  <style>
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    [data-hidden] {
+      display: none;
+    }
+
+    #dark:target ~ #bands {
+      --band-stroke-colour: #000;
+    }
+
+    :root:has(#dark:target) #drop-shadow > #shadow {
+      --band-shadow-colour: #fff;
+      --band-shadow-opacity: 1;
+    }
+
+    #drop-shadow > #shadow {
+      --actual-band-shadow-colour: var(--band-shadow-colour, #000);
+      --actual-band-shadow-opacity: var(--band-shadow-opacity, 0.95);
+
+      flood-color: var(--actual-band-shadow-colour);
+      flood-opacity: var(--actual-band-shadow-opacity);
+    }
+
+    #bands {
+      transform-origin: center;
+      animation: rotate 30s linear infinite;
+    }
+
+    #band {
+      --actual-band-wh-ratio: var(--band-wh-ratio, 3.5);
+      --actual-band-inset: var(--band-inset, 5%);
+      --actual-band-stroke-colour: var(--band-stroke-colour, #fff);
+      --actual-band-stroke-width: var(--band-stroke-width, 3%);
+
+      --rx: calc(50% - var(--actual-band-inset) - var(--actual-band-stroke-width));
+      --ry: calc(var(--rx) / var(--actual-band-wh-ratio));
+
+      cx: 50%;
+      cy: 50%;
+      rx: var(--rx);
+      ry: var(--ry);
+
+      fill: none;
+      stroke: var(--actual-band-stroke-colour);
+      stroke-width: var(--actual-band-stroke-width);
+      transform-origin: center;
+      transform: rotate(calc((360deg / 6) * var(--band-number, 0)));
+      filter: url(#drop-shadow);
+    }
+  </style>
+  <g id="dark" data-hidden="true" />
+  <g id="bands">
+    <ellipse id="band" />
+    <use href="#band" style="--band-number: 1" />
+    <use href="#band" style="--band-number: 2" />
+  </g>
+</svg>
