@@ -1,22 +1,25 @@
+import { useSelector } from "react-redux";
+
+import type { GlobalState } from "../../store/types.ts";
 import { joinClasses } from "../../utils";
+import { UserDetails } from "../UserDetails/UserDetails.tsx";
 import s from "./StatusBar.module.css";
 
 const StatusBar = () => {
-  const status = "connecting";
+  const connectionStatus = useSelector((state: GlobalState) => state.connection.status);
   return (
     <div className={s["status-bar"]}>
       <div className={s["connection-status"]}>
-        <div className={s["connection-status-indicator"]} data-status={status}></div>
+        <div className={s["connection-status-indicator"]} data-status={connectionStatus}></div>
         <p className={joinClasses(s["status-text"], s["connection-status-text"])}>
-          {status[0]?.toUpperCase()}
-          {status.slice(1)}
+          {connectionStatus[0]?.toUpperCase()}
+          {connectionStatus.slice(1)}
         </p>
       </div>
-      <div className={s["user-details"]}>
-        <p className={joinClasses(s["status-text"], s["user-details-text"])}>Mr. Anonymous</p>
-      </div>
+      <UserDetails />
     </div>
   );
 };
 
 export { StatusBar };
+

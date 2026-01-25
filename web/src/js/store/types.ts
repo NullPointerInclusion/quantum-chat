@@ -1,6 +1,12 @@
+export interface User {
+  id: string
+  username: string
+  firstName: string
+  lastName: string
+}
 export interface AuthenticationState {
   authenticated: boolean;
-  userid: string;
+  user: User;
   token: string;
 }
 
